@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'semantic-ui-react';
 
 class YourThings extends Component {
 
@@ -33,7 +34,7 @@ class YourThings extends Component {
 		return (
 			<div>
 				<div>
-					<button onClick={this.ButtonClick}>Code</button>
+					<Button onClick={this.ButtonClick}>Click Here</Button>
 					<br/>
 					<h2>{ this.state.clicks }</h2>
 				</div>
