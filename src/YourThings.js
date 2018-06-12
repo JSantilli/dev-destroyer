@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
-import { Button } from 'semantic-ui-react';
+import {
+	Container,
+	Button,
+	List,
+	Statistic
+} from 'semantic-ui-react';
 
 class YourThings extends Component {
 
-	ButtonClick = () => {
+	ButtonClick = (e) => {
 
-		this.setState({
-			clicks: this.state.clicks + 1
-		});
+		let buttonId = e.target.id;
 
-		// let attribute = YourThings.getAttributeObjectByAttribute(e.target.id);
-		//
-		// if (attribute != null) {
-		// 	attribute.value++;
-		// 	// YourThings.setState({
-		// 	// 	attributes: YourThings.state.attributes;
-		// 	// })
-		// }
+		switch (buttonId) {
+			case "btn-code":
+				this.setState({
+					linesOfCode: this.state.linesOfCode + 1
+				},
+				function() {
+					if (this.state.linesOfCode >= 10) {
+						this.setState({
+							showDevelopers: true
+						});
+					}
+				});
+				break;
+
+			case "btn-dev":
+				this.setState({
+					developers: this.state.developers + 1
+				});
+				break;
+
+			default:
+				break;
+		}
 
 	};
 
@@ -25,31 +43,43 @@ class YourThings extends Component {
 		super(props);
 
 		this.state = {
-			clicks: 0
+			linesOfCode	: 0,
+			developers	: 0,
+			showDevelopers : false
 		};
 
 	}
 
 	render() {
+
+		document.body.style.backgroundColor = "#5D6D7E";
+
 		return (
 			<div>
-				<div>
-					<Button onClick={this.ButtonClick}>Click Here</Button>
-					<br/>
-					<h2>{ this.state.clicks }</h2>
-				</div>
-				<br/>
-				{/*<div>*/}
-					{/*{YourThings.attributes.map(function(attribute, index) {*/}
-						{/*return <div key={index}><p id={attribute.attribute} key={index}>{attribute.attribute} : {attribute.value}</p></div>;*/}
-					{/*})}*/}
-				{/*</div>*/}
-				{/*<br/>*/}
-				{/*<div>*/}
-					{/*{YourThings.things.map(function(thing, index) {*/}
-						{/*return <div key={index}><button id={thing.name} key={index} onClick={this.ButtonClick}>{thing.displayValue}</button><br/></div>;*/}
-					{/*})}*/}
-				{/*</div>*/}
+				<Container style={{marginTop: "20px"}}>
+					<List>
+						<List.Item>
+							<Statistic>
+								<Statistic.Value>{this.state.linesOfCode}</Statistic.Value>
+								<Statistic.Label>Lines of Code</Statistic.Label>
+							</Statistic>
+							<br/>
+							<Button id={"btn-code"} onClick={this.ButtonClick}>Code</Button>
+						</List.Item>
+						{this.state.showDevelopers ?
+							<List.Item hidden>
+								<Statistic>
+									<Statistic.Value>{this.state.developers}</Statistic.Value>
+									<Statistic.Label>Developers</Statistic.Label>
+								</Statistic>
+								<br/>
+								<Button id={"btn-dev"} onClick={this.ButtonClick}>Hire Developers</Button>
+							</List.Item>
+							:
+							null
+						}
+					</List>
+				</Container>
 			</div>
 		);
 	}
