@@ -1,0 +1,9 @@
+.clickImage {
+    transition: all 400ms ease-in-out;
+}
+.clickImage.bounceIn {
+    transform: scale(0.5);
+}
+.clickImage.bounceOut {
+    /*transform: translateX(-220px);*/
+}
